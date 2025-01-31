@@ -1,0 +1,56 @@
+#include <stdio.h>
+void swap(int *a, int *b)
+ {
+int t;
+ t = *a;
+  *a = *b;
+  *b = t;
+}
+
+int partition(int array[], int low, int high)
+ {
+  int pivot, i,j;
+   pivot = array[high];
+     i = (low - 1);
+  for ( j = low; j < high; j++)
+ {
+    if (array[j] <= pivot)
+ {
+         i++;
+       swap(&array[i], &array[j]);
+    }
+  }
+  swap(&array[i + 1], &array[high]);
+  return (i + 1);
+}
+
+void quicksort(int array[], int low, int high) 
+{
+int pi;
+  if (low < high)
+ {
+     pi = partition(array, low, high);
+    quicksort(array, low, pi - 1);
+    quicksort(array, pi + 1, high);
+  }
+}
+void printarray(int array[], int size)
+ {
+int I;
+  for (i = 0; i < size; ++i)
+ {
+    printf("%d  ", array[i]);
+  }
+  printf("\n");
+}
+
+int main() 
+{
+  int data[] = {8, 7, 2, 1, 70, 9, 6},n;
+   n = sizeof(data) / sizeof(data[0]);
+    printf("Unsorted Array\n");
+  printarray(data, n);
+    quicksort(data, 0, n - 1);
+    printf("Sorted array in ascending order: \n");
+  printarray(data, n);
+}
