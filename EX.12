@@ -21,7 +21,7 @@ void print(int n)
  for(i=1;i<=n;++i)
  {
   printf("\n\n%d",i);
-  for(j=1;j<=n;++j) //for nxn board
+  for(j=1;j<=n;++j)
   {
    if(board[i]==j)
     printf("\tQ");
