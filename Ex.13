@@ -1,0 +1,56 @@
+#include <stdio.h>
+#define NODE 5
+int graph[NODE][NODE] = {
+   {0, 1, 0, 1, 0},
+   {1, 0, 1, 1, 1},
+   {0, 1, 0, 0, 1},
+   {1, 1, 0, 0, 1},
+   {0, 1, 1, 1, 0},
+};
+int path[NODE];
+void displaycycle() {
+   printf("Cycle Found: ");
+   for (int i = 0; i < NODE; i++)
+      printf("%d ", path[i]);
+   printf("%d\n", path[0]);
+}
+int isvalid(int v, int k) {
+   if (graph[path[k - 1]][v] == 0)
+      return 0;
+   for (int i = 0; i < k; i++)
+      if (path[i] == v)
+         return 0;
+   return 1;
+}
+int cyclefound(int k) {
+   if (k == NODE) {
+      if (graph[path[k - 1]][path[0]] == 1)
+         return 1;
+      else
+         return 0;
+   }
+   for (int v = 1; v < NODE; v++) {
+      if (isvalid(v, k)) {
+         path[k] = v;
+         if (cyclefound(k + 1) == 1)
+            return 1;
+         path[k] = -1;
+      }
+   }
+   return 0;
+}
+int hamiltoniancycle() {
+   for (int i = 0; i < NODE; i++)
+      path[i] = -1;
+   path[0] = 0;
+   if (cyclefound(1) == 0) {
+      printf("Solution does not exist\n");
+      return 0;
+   }
+   displaycycle();
+   return 1;
+}
+int main() {
+   hamiltoniancycle();
+   return 0;
+}
