@@ -1,0 +1,38 @@
+class emp {
+ int id;
+ String name;
+ String department;
+ double salary;
+emp()
+{
+id=101;
+name=”kala”;
+department=”CS”;
+salary=10000;
+}
+ emp(int id, String name, String department, double salary) {
+ this.id = id;
+ this.name = name;
+ this.department = department;
+ this.salary = salary;
+ }
+ void displayInfo() {
+ System.out.println("Employee ID: " + id);
+ System.out.println("Name : " + name);
+ System.out.println("Department: " + department);
+ System.out.println("Salary : $" + salary);
+ System.out.println("-----------------------------------");
+ }
+}
+class Employee {
+ public static void main(String[] args) {
+ emp e1=new emp();
+ emp emp1 = new emp(101, "Ram", "HR", 55000.00);
+ emp emp2 = new emp(102, "Hema", "IT", 72000.00);
+ emp emp3 = new emp(103, "Chandru", "Finance", 68000.00);
+e1.displayInfo();
+ emp1.displayInfo();
+ emp2.displayInfo();
+ emp3.displayInfo();
+ }
+}
