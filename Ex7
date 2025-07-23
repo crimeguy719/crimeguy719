@@ -1,0 +1,45 @@
+import java.util.Scanner;
+public class stringdemo
+{
+    public static void main(String[] args)
+{
+Scanner scanner = new Scanner(System.in);
+System.out.println("=== STRING CLASS OPERATIONS ===");
+System.out.print("Enter your name: ");
+String name = scanner.nextLine();
+System.out.println("Length of name: " + name.length());
+System.out.println("Name in uppercase: " + name.toUpperCase());
+System.out.println("Name in lowercase: " + name.toLowerCase());
+System.out.println("Does name contain 'a'? " + name.contains("a"));
+System.out.println("Character at position 2: " + name.charAt(2));
+String fullName = name.concat(" Kumar");
+System.out.println("After concatenation: " + fullName);
+System.out.println("Starts with 'La'? " + name.startsWith("La"));
+System.out.println("Ends with 'ya'? " + name.endsWith("ya"));
+System.out.println("Index of 'a': " + name.indexOf('a'));
+System.out.println("Last index of 'a': " + name.lastIndexOf('a'));
+System.out.println("Trimmed string: '" + ("  " + name + "  ").trim() + "'");
+System.out.println("String equals 'Lavanya'? " + name.equals("Lavanya"));
+System.out.println("String equalsIgnoreCase 'lavanya'? " + name.equalsIgnoreCase("lavanya"));
+System.out.println("\n=== STRINGBUFFER CLASS OPERATIONS ===");
+System.out.print("Enter a message: ");
+String message = scanner.nextLine();
+StringBuffer buffer = new StringBuffer(message);
+buffer.append(" - Welcome!");
+System.out.println("After appending: " + buffer);
+buffer.insert(0, "Hello, ");
+System.out.println("After insertion: " + buffer);
+buffer.replace(0, 5, "Hi");
+System.out.println("After replacement: " + buffer);
+buffer.reverse();
+System.out.println("After reversing: " + buffer);
+buffer.reverse();
+buffer.delete(0, 3);
+System.out.println("After deleting first 3 characters: " + buffer);
+System.out.println("Capacity of buffer: " + buffer.capacity());
+buffer.ensureCapacity(100);
+System.out.println("New capacity after ensureCapacity(100): " + buffer.capacity());
+System.out.println("Length of buffer: " + buffer.length());
+scanner.close();
+}
+}
