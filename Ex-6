@@ -98,7 +98,7 @@ class Inheritance
         g.displayPerson();
         g.calculateAverage();
         g.checkPass();
-       System.out.println("\n----- Staff Member -----");
+        System.out.println("\n----- Staff Member -----");
         Staff s = new Staff();
         s.setPerson("Mr. Raj", 45);
         s.setSalary(30000);
