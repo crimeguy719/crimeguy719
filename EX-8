@@ -1,0 +1,58 @@
+import java.util.*;
+class exception {
+ public static void main(String[] args) {
+ Scanner scanner = new Scanner(System.in);
+ try {
+System.out.print("Enter your roll number (integer): ");
+ int rollNo = scanner.nextInt();
+ System.out.print("Enter first number: ");
+ int m = scanner.nextInt();
+ System.out.print("Enter second number: ");
+ int n = scanner.nextInt();
+ int div = m /n;
+ System.out.println("Division =: " + div);
+ int[] scores = {85, 90, 78};
+ System.out.print("Enter subject index to view marks : ");
+ int index = scanner.nextInt();
+ System.out.println("Subject " + index + " marks: " + scores[index]);
+ String name = null
+ System.out.println("Student name length: " + name.length());
+ scanner.nextLine();
+ System.out.print("Enter age (as string): ");
+ String ageInput = scanner.nextLine();
+ int age = Integer.parseInt(ageInput);
+ System.out.println("Student age: " + age);
+ String grade = "A+";
+ System.out.println("Grade character at index 5: " + grade.charAt(5));
+ System.out.print("Enter size of array: ");
+ int size = scanner.nextInt();
+ int[] dynamicArray = new int[size];
+ System.out.println("Array of size " + size + " created.");
+ } 
+catch (InputMismatchException e) {
+ System.out.println("Error: Invalid input type. Please enter correct data.");
+ }
+catch (ArithmeticException e) {
+ System.out.println("Error: Division by zero is not allowed.");
+ }
+catch (ArrayIndexOutOfBoundsException e) {
+ System.out.println("Error: You tried to access an invalid index of the array.");
+ } 
+catch (NullPointerException e) {
+ System.out.println("Error: Student name is not initialized (null reference).");
+ } 
+catch (NumberFormatException e) {
+ System.out.println("Error: Cannot convert the entered string into a number.");
+ } 
+catch (StringIndexOutOfBoundsException e) {
+ System.out.println("Error: Invalid index used to access a character in string.");
+ } 
+catch (NegativeArraySizeException e) {
+ System.out.println("Error: Array size cannot be negative.");
+ } 
+finally {
+ System.out.println("Finally block. Thank you!");
+ scanner.close();
+ }
+ }
+}
