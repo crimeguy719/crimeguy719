@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<body>
+<script>
+function power(a, b, p)
+{
+let result = 1;
+a = a % p;
+while (b > 0) {
+if (b % 2 === 1) {
+result = (result * a) % p;
+}
+b = Math.floor(b / 2);
+a = (a * a) % p;
+}
+return result;
+}
+var P, G, x, a, y, b, ka, kb;
+P = parseInt(window.prompt("Enter value of P (Prime number): "));
+document.write("The value of P: " + P + "<br>");
+G = parseInt(window.prompt("Enter value of G (Primitive root): "));
+document.write("The value of G: " + G + "<br>");
+a = parseInt(window.prompt("Enter private key for Alice: "));
+document.write("The private key a for Alice: " + a + "<br>");
+x = power(G, a, P);
+b = parseInt(window.prompt("Enter private key for Bob: "));
+document.write("The private key b for Bob: " + b + "<br>");
+y = power(G, b, P);
+ka = power(y, a, P);
+kb = power(x, b, P);
+document.write("Secret key for Alice is: " + ka + "<br>");
+document.write("Secret key for Bob is: " + kb + "<br>");
+</script>
+</body>
+</html>
