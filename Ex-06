@@ -1,0 +1,57 @@
+Install Snort
+Command:
+sudo apt update
+sudo apt install snort -y
+Sample Output:
+Setting up snort (2.9.x) ...
+Snort successfully installed
+
+Verify Snort Installation
+Command:
+snort --version
+
+Configure Snort
+Command:
+sudo nano /etc/snort/snort.conf
+Configuration Entry:
+ipvar HOME_NET 192.168.1.0/24
+Sample Output:
+Configuration file updated successfully
+
+Test Snort Configuration
+Command:
+sudo snort -T -c /etc/snort/snort.conf
+Sample Output:
+Snort successfully validated the configuration!
+Run Snort in Intrusion  Detection System Mode
+Command:
+sudo snort -A console -q -c /etc/snort/snort.conf -i eth0
+Sample Output:
+Running in IDS mode...
+
+
+Create a Custom  IDS  Rule
+Command:
+sudo nano /etc/snort/rules/local.rules
+Rule Added:
+alert icmp any any -> $HOME_NET any (msg:"ICMP Ping Detected"; sid:1000001; rev:1;)
+Sample Output:
+Rule saved successfully
+
+
+Generate Network Traffic
+(Open new terminal)
+Command:
+ping 8.8.8.8
+Sample Output:
+64 bytes from 8.8.8.8: icmp_seq=1 ttl=117 time=20 ms
+
+Observe IDS Alert
+Snort Output:
+[**] [1:1000001:1] ICMP Ping Detected [**]
+
+View Snort Log Files
+Command:
+sudo cat /var/log/snort/alert
+Sample Output:
+[**] [1:1000001:1] ICMP Ping Detected [**]
