@@ -1,0 +1,56 @@
+CREATE TABLE
+create table emp1(employee_id number(3) primary key, first_name varchar(50),last_name varchar(50), hire_month varchar(25));
+
+Table Created
+
+INSERT
+
+SQL> insert into emp1 values(1,'John','Smith','July');
+
+1 row created.
+
+SQL> insert into emp1 values(2,'John','Peter','August');
+
+1 row created.
+SQL> insert into emp1 values(3,'Smith','Peter','September');
+
+1 row created.
+SQL> select * from emp1;
+
+EMPLOYEE_ID 		FIRST_NAME	LAST_NAME                HIRE_MONTH
+          1 			John			Smith                                              July
+          2 			John			Peter                                              August          
+          3 			Smith			Peter                                           September
+
+UPDATE
+
+SQL> update emp1 set first_name = 'amit', last_name = 'smith', hire_month = 'july'  where  employee_id = 1;
+
+1 row updated.
+
+SQL> select * from emp1;
+
+EMPLOYEE_ID 	FIRST_NAME  	LAST_NAME      HIRE_MONTH
+          1 		Amit			      Smith                              July
+
+          2 		John			     Peter                            August
+
+          3 		Smith			     Peter                           September
+
+DELETE
+
+SQL> delete from emp1 where employee_id = 101;
+
+0 rows deleted.
+
+SQL> delete from emp1 where employee_id = 1;
+
+1 row deleted.
+	
+SQL> select * from emp1;
+
+EMPLOYEE_ID 	FIRST_NAME  	LAST_NAME      HIRE_MONTH
+
+          2 		John			     Peter                            August
+
+          3 		Smith			     Peter                           September
