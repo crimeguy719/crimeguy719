@@ -1,0 +1,136 @@
+Table Creation: Table Name: customers
+
+SQL> create table customers ( customer_id int primary key, name varchar(50),   city varchar(50));
+
+Table created.
+
+SQL> insert into customers (customer_id, name, city) values (1, 'alice', 'new york');
+
+1 row created.
+
+insert into customers (customer_id, name, city) values(2, 'Bob', 'Los Angeles');
+
+1 row created.
+
+SQL> insert into customers (customer_id, name, city) values (3, 'Charlie', 'Chicago');
+
+1 row created.
+
+SQL> insert into customers (customer_id, name, city) values (4, 'David', 'Houston');
+
+1 row created.
+
+SQL> insert into customers (customer_id, name, city) values (5, 'Emma', 'Seattle');
+
+1 row created.
+
+
+SQL> select * from customers;
+
+CUSTOMER_ID 	NAME	CITY
+          1 		alice		new york
+
+          2 		Bob		Los Angeles
+
+          3 		Charlie	Chicago
+
+          4 		David		Houston
+
+          5 		Emma		Seattle
+
+
+
+Table Creation: Table Name: suppliers
+
+SQL> create table suppliers (supplier_id int primary key, name varchar(50), city varchar(50));
+
+Table created.
+
+SQL> insert into suppliers (supplier_id, name, city) values (101, 'x corp', 'chicago') ;
+
+1 row created.
+
+SQL> insert into suppliers (supplier_id, name, city) values (102, 'Y Ltd', 'Boston') ;
+
+1 row created.
+
+SQL> insert into suppliers (supplier_id, name, city) values (103, 'Z Inc', 'New York') ;
+
+1 row created.
+
+SQL> insert into suppliers (supplier_id, name, city) values (104, 'A Co', 'Miami');
+
+1 row created.
+
+SQL> insert into suppliers (supplier_id, name, city) values (105, 'B Pvt', 'Houston');
+
+1 row created.
+
+
+SQL> select * from suppliers;
+
+SUPPLIER_ID 		NAME		CITY
+        101 			X Corp		Chicago
+
+        102 			Y Ltd			Boston
+
+        103 			Z Inc			New York
+
+        104 			A Co			Miami
+
+        105 			B Pvt			Houston
+
+
+UNION:
+
+SQL> select city from customers union select city from suppliers;
+
+CITY
+
+Boston
+Chicago
+Houston
+Los Angeles
+Miami
+New York
+Seattle
+new york
+
+8 rows selected.
+
+UNION ALL:
+
+SQL> select city from customers union all select city from suppliers;
+
+
+CITY
+new york
+Los Angeles
+Chicago
+Houston
+Seattle
+Chicago
+Boston
+New York
+Miami
+Houston
+
+10 rows selected.
+
+
+INTERSECT
+
+SQL> select city from customers intersect select city from suppliers;
+
+CITY
+Chicago
+Houston
+
+EXCEPT / MINUS
+
+SQL> select city from customers minus select city from suppliers;
+
+CITY
+Los Angeles
+Seattle
+new york
