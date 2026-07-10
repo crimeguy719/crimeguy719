@@ -1,0 +1,32 @@
+
+Primary Key Constraint
+
+SQL> CREATE TABLE Student1( StudentID INT PRIMARY KEY,  Name VARCHAR(50),  Age INT);
+
+Table created.
+
+Foreign Key Constraint
+
+SQL> CREATE TABLE Departments ( DeptID INT PRIMARY KEY, DeptName VARCHAR(50));
+
+Table created.
+
+SQL> CREATE TABLE Employees1(EmpID INT PRIMARY KEY,EmpName VARCHAR(50), DeptID INT, FOREIGN KEY (DeptID) REFERENCES Departments(DeptID));
+	
+Table created.
+
+Unique key constraint
+
+SQL> CREATE TABLE Users ( UserID INT PRIMARY KEY, Email VARCHAR(100) UNIQUE, Phone VARCHAR(15));
+
+Table created.
+
+Check key constraint
+
+SQL> CREATE TABLE Products ( ProductID INT PRIMARY KEY, ProductName VARCHAR(50), Price DECIMAL(10,2) CHECK (Price > 0),  Quantity INT CHECK (Quantity >= 0));
+
+Table created.
+
+SQL> CREATE TABLE Courses ( CourseID INT PRIMARY KEY, CourseName VARCHAR(100) NOT NULL, Duration INT);
+
+Table created
