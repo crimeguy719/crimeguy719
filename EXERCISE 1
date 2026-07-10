@@ -1,0 +1,29 @@
+CODING
+1. CREATE 
+SQL> CREATE TABLE Student (sno NUMBER (3), sname CHAR (10), class CHAR (5));
+Table Created
+
+2. ALTER
+(a)ALTER TABLE ...ADD...: This is used to add some extra fields into existing relation.
+SQL>ALTER TABLE std ADD (Address CHAR(10));
+Table Altered
+
+(b)ALTER TABLE...MODIFY...: This is used to change the width as well as data type of fields of existing relations.
+SQL>ALTER TABLE student MODIFY (sname VARCHAR(10),class VARCHAR(5));
+Table Modified
+
+c) ALTER TABLE..DROP - This is used to remove any field of existing relations.
+SQL>ALTER TABLE student DROP column (sname);
+Table Altered
+
+d)ALTER TABLE..RENAME...: This is used to change the name of fields in existing relations. 
+SQL>ALTER TABLE student RENAME COLUMN sname to stu_name;
+Table Altered
+
+3. DROP TABLE: This is used to delete the structure of a relation. It permanently deletes the records in the table. 
+SQL>DROP TABLE std;
+Table dropped
+
+4. RENAME: It is used to modify the name of the existing database object. 
+SQL>RENAME TABLE std TO std1;
+Table Altered
