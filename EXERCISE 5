@@ -1,0 +1,87 @@
+Table Name: Customers1
+SQL> CREATE TABLE Customers1 (CustomerID INT PRIMARY KEY, CustomerName VARCHAR(50));
+
+Table created.
+Table Name: Orders1
+SQL> CREATE TABLE Orders1( OrderID INT PRIMARY KEY, CustomerID INT,  OrderDate DATE, Amount DECIMAL(10, 2));
+
+Table created.
+
+SQL> INSERT INTO Customers1 (CustomerID, CustomerName) VALUES (1, 'Alice');
+
+1 row created.
+
+SQL> INSERT INTO Customers1 (CustomerID, CustomerName) VALUES (2, 'Bob');
+
+1 row created.
+
+SQL> INSERT INTO Customers1 (CustomerID, CustomerName) VALUES (3, 'Charlie');
+
+1 row created.
+
+SQL> INSERT INTO Orders1 (OrderID, CustomerID, OrderDate, Amount) VALUES (101, 1, TO_DATE('15-01-2025', 'DD-MM-YYYY'), 150.00);
+
+1 row created.
+
+SQL> INSERT INTO Orders1 (OrderID, CustomerID, OrderDate, Amount) VALUES (102, 2, TO_DATE('20-02-2025', 'DD-MM-YYYY'), 150.00);
+
+1 row created.
+
+SQL> INSERT INTO Orders1 (OrderID, CustomerID, OrderDate, Amount) VALUES (103, 3, TO_DATE('10-03-2025', 'DD-MM-YYYY'), 75.25);
+
+1 row created.
+
+
+SQL> SELECT  c.CustomerID,  c.CustomerName, o.OrderID, o.OrderDate, o.Amount FROM
+  	Customers1 c INNER JOIN   Orders1 o ON c.CustomerID = o.CustomerID;
+
+CUSTOMERID    CUSTOMERNAME          ORDERID   ORDERDATE     AMOUNT
+         1 		Alice                    		 101	15-JAN-25        150
+
+         2 		Bob                                          102	20-FEB-25        150
+
+         3 		Charlie                                     103	10-MAR-25      75.25
+
+
+SQL> SELECT   c.CustomerID,   c.CustomerName,   o.OrderID,   o.OrderDate,   o.Amount FROM  Customers1 c LEFT OUTER JOIN   Orders1 o ON c.CustomerID = o.CustomerID;
+
+CUSTOMERID 	CUSTOMERNAME            ORDERID    ORDERDATE     AMOUNT
+         1 		Alice                                          101		15-JAN-25        150
+
+         2 		Bob                                            102		20-FEB-25        150
+
+         3 		Charlie                                       103		10-MAR-25      75.25
+
+SQL> SELECT    c.CustomerID,   c.CustomerName,   o.OrderID,   o.OrderDate,   o.Amount FROM  Customers1 c RIGHT OUTER JOIN   Orders1 o ON c.CustomerID = o.CustomerID;
+
+CUSTOMERID 	CUSTOMERNAME        ORDERID		ORDERDATE     AMOUNT
+         1 			Alice                           101		15-JAN-25        	150
+
+         2 			Bob                             102		20-FEB-25        	150
+
+         3 			Charlie                        103		10-MAR-25      	75.25
+
+SQL> SELECT   c.CustomerID,   c.CustomerName,   o.OrderID,   o.OrderDate,   o.Amount FROM Customers1 c FULL OUTER JOIN   Orders1 o ON c.CustomerID = o.CustomerID;
+
+
+CUSTOMERID	CUSTOMERNAME      ORDERID	ORDERDATE     AMOUNT
+         1 			Alice                     101			15-JAN-25        150
+
+         2 		Bob                                      102	20-FEB-25        150
+
+         3 		Charlie                                 103	10-MAR-25      75.25
+
+SQL> SELECT    c.CustomerName,   o.OrderID FROM   Customers1 c CROSS JOIN   Orders1 o;
+
+CUSTOMERNAME                                          ORDERID
+Alice                                                     101
+Alice                                                     102
+Alice                                                     103
+Bob                                                       101
+Bob                                                       102
+Bob                                                       103
+Charlie                                                   101
+Charlie                                                   102
+Charlie                                                   103
+
+9 rows selected.
