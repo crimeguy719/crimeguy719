@@ -1,0 +1,36 @@
+SET SERVEROUTPUT ON;
+DECLARE
+    v_num   NUMBER := 5;
+    v_count NUMBER := 1;
+BEGIN
+    -- Conditional Construct
+    IF v_num > 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Number is positive');
+    ELSIF v_num < 0 THEN
+        DBMS_OUTPUT.PUT_LINE('Number is negative');
+    ELSE
+        DBMS_OUTPUT.PUT_LINE('Number is zero');
+    END IF;
+
+    -- Iterative Construct: FOR LOOP
+    DBMS_OUTPUT.PUT_LINE('Numbers from 1 to 5:');
+    FOR i IN 1..5 LOOP
+        DBMS_OUTPUT.PUT_LINE(i);
+    END LOOP;
+
+    -- WHILE LOOP
+    DBMS_OUTPUT.PUT_LINE('Counting to 3 using WHILE loop:');
+    WHILE v_count <= 3 LOOP
+        DBMS_OUTPUT.PUT_LINE('Count = ' || v_count);
+        v_count := v_count + 1;
+    END LOOP;
+    -- Sequential Flow Control: EXIT
+    DBMS_OUTPUT.PUT_LINE('Demonstrating EXIT in a loop:');
+    FOR i IN 1..10 LOOP
+        IF i = 4 THEN
+            DBMS_OUTPUT.PUT_LINE('Breaking at i = 4');
+            EXIT;
+        END IF;
+        DBMS_OUTPUT.PUT_LINE('i = ' || i);
+    END LOOP;
+END;
