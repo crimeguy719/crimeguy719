@@ -1,0 +1,41 @@
+SQL> CREATE TABLE test_employees (
+  2      emp_id   NUMBER PRIMARY KEY,
+  3      emp_name VARCHAR2(50),
+  4      salary   NUMBER
+  5  );
+
+Table created.
+SQL> -- Step 2: Insert sample data
+SQL> INSERT INTO test_employees VALUES (101, 'John', 5000);
+1 row created.
+SQL> INSERT INTO test_employees VALUES (102, 'Mary', 6000);
+1 row created.
+SQL> COMMIT;
+Commit complete.
+SQL>
+SQL> -- Step 3: Create Procedure
+SQL> CREATE OR REPLACE PROCEDURE give_raise (
+  2      p_emp_id IN NUMBER,
+  3      p_amount IN NUMBER
+  4  ) AS
+  5  BEGIN
+  6      UPDATE test_employees
+  7      SET salary = salary + p_amount
+  8      WHERE emp_id = p_emp_id;
+  9
+ 10      IF SQL%FOUND THEN
+ 11          DBMS_OUTPUT.PUT_LINE('Salary updated for Employee ID: ' || p_emp_id);
+ 12          DBMS_OUTPUT.PUT_LINE('Rows affected: ' || SQL%ROWCOUNT);
+ 13      ELSE
+ 14          DBMS_OUTPUT.PUT_LINE('No employee found with ID: ' || p_emp_id);
+ 15      END IF;
+ 16  END;
+ 17  /
+
+Procedure created.
+SQL>
+SQL> -- Step 4: Call the procedure from an anonymous block
+SQL> BEGIN
+  2      give_raise(101, 1000); -- Increase salary of employee 101 by 1000
+  3  END;
+  4  /
