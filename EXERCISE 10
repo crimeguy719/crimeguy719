@@ -1,0 +1,47 @@
+SET SERVEROUTPUT ON;
+-- Create and populate test table (if not exists)
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE test_employees';
+EXCEPTION
+    WHEN OTHERS THEN
+        NULL; -- Ignore error if table doesn't exist
+END;
+/
+CREATE TABLE test_employees (
+    emp_id   NUMBER PRIMARY KEY,
+    emp_name VARCHAR2(50),
+    salary   NUMBER
+);
+INSERT INTO test_employees VALUES (101, 'John', 5000);
+INSERT INTO test_employees VALUES (102, 'Mary', 6000);
+INSERT INTO test_employees VALUES (103, 'David', 5500);
+COMMIT;
+-- PL/SQL block using explicit cursor
+DECLARE
+    -- Declare cursor to select employees with salary > 5000
+    CURSOR emp_cursor IS
+        SELECT emp_id, emp_name, salary
+        FROM test_employees
+        WHERE salary > 5000;
+    -- Variables to store fetched data
+    v_id    test_employees.emp_id%TYPE;
+    v_name  test_employees.emp_name%TYPE;
+    v_sal   test_employees.salary%TYPE;
+BEGIN
+    -- Open the cursor
+    OPEN emp_cursor;
+    LOOP
+        -- Fetch data into variables
+        FETCH emp_cursor INTO v_id, v_name, v_sal;
+
+        -- Exit when no more rows
+        EXIT WHEN emp_cursor%NOTFOUND;
+
+        -- Process data
+        DBMS_OUTPUT.PUT_LINE('ID: ' || v_id || ', Name: ' || v_name || ', Salary: ' || v_sal);
+    END LOOP;
+
+    -- Close the cursor
+    CLOSE emp_cursor;
+END;
+/
