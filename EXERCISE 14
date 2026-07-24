@@ -1,0 +1,52 @@
+SQL> BEGIN
+  2      EXECUTE IMMEDIATE 'DROP TABLE tcl_demo';
+  3  EXCEPTION WHEN OTHERS THEN
+  4      NULL;
+  5  END;
+  6  /
+
+PL/SQL procedure successfully completed.
+
+SQL>
+SQL> CREATE TABLE tcl_demo (
+  2      id   NUMBER,
+  3      name VARCHAR2(50)
+  4  );
+
+Table created.
+
+SQL>
+SQL> -- Step 2: Begin transaction - Insert data
+SQL> INSERT INTO tcl_demo VALUES (1, 'Alice');
+
+1 row created.
+
+SQL> INSERT INTO tcl_demo VALUES (2, 'Bob');
+
+1 row created.
+
+SQL>
+SQL> -- Step 3: Save current point
+SQL> SAVEPOINT sp1;
+
+Savepoint created.
+SQL>
+SQL> -- Step 4: Insert more data
+SQL> INSERT INTO tcl_demo VALUES (3, 'Charlie');
+
+1 row created.
+
+SQL> INSERT INTO tcl_demo VALUES (4, 'David');
+
+1 row created.
+SQL>
+SQL> -- Step 5: Rollback to savepoint (removes Charlie & David)
+SQL> ROLLBACK TO sp1;
+
+Rollback complete.
+
+SQL>
+SQL> -- Step 6: Commit the remaining changes
+SQL> COMMIT;
+
+Commit complete.
