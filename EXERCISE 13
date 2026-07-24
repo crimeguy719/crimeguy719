@@ -1,0 +1,63 @@
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE order_audit';
+EXCEPTION WHEN OTHERS THEN
+    NULL;
+END;
+/
+
+BEGIN
+    EXECUTE IMMEDIATE 'DROP TABLE orders';
+EXCEPTION WHEN OTHERS THEN
+    NULL;
+END;
+/
+-- 2) Create main table
+CREATE TABLE orders (
+    order_id      NUMBER PRIMARY KEY,
+    customer_name VARCHAR2(50),
+    order_date    DATE,
+    total_amount  NUMBER
+);
+
+-- 3) Create audit table
+CREATE TABLE order_audit (
+    audit_id      NUMBER GENERATED ALWAYS AS IDENTITY,
+    order_id      NUMBER,
+    customer_name VARCHAR2(50),
+    action        VARCHAR2(20),
+    action_date   DATE
+);
+
+-- 4) Create trigger for INSERT, UPDATE, DELETE
+CREATE OR REPLACE TRIGGER trg_orders_audit
+AFTER INSERT OR UPDATE OR DELETE ON orders
+FOR EACH ROW
+BEGIN
+    IF INSERTING THEN
+        INSERT INTO order_audit (order_id, customer_name, action, action_date)
+        VALUES (:NEW.order_id, :NEW.customer_name, 'INSERT', SYSDATE);
+    ELSIF UPDATING THEN
+        INSERT INTO order_audit (order_id, customer_name, action, action_date)
+        VALUES (:NEW.order_id, :NEW.customer_name, 'UPDATE', SYSDATE);
+    ELSIF DELETING THEN
+        INSERT INTO order_audit (order_id, customer_name, action, action_date)
+        VALUES (:OLD.order_id, :OLD.customer_name, 'DELETE', SYSDATE);
+    END IF;
+END;
+/
+-- 5) Testing
+INSERT INTO orders (order_id, customer_name, order_date, total_amount)
+VALUES (1, 'Alice', SYSDATE, 1500);
+
+INSERT INTO orders (order_id, customer_name, order_date, total_amount)
+VALUES (2, 'Bob', SYSDATE, 2000);
+
+UPDATE orders SET total_amount = 1800, customer_name = 'Alice M'
+WHERE order_id = 1;
+
+DELETE FROM orders WHERE order_id = 2;
+
+COMMIT;
+-- 6) View results
+SELECT * FROM orders;
+SELECT * FROM order_audit;
