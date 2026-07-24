@@ -1,0 +1,60 @@
+SQL> SET SERVEROUTPUT ON;
+SQL>
+SQL> -- Step 1: Create table
+SQL> BEGIN
+  2      EXECUTE IMMEDIATE 'DROP TABLE test_employees';
+  3  EXCEPTION
+  4      WHEN OTHERS THEN
+  5          NULL; -- Ignore if table doesn't exist
+  6  END;
+  7  /
+PL/SQL procedure successfully completed.
+SQL> CREATE TABLE test_employees (
+  2      emp_id   NUMBER PRIMARY KEY,
+  3      emp_name VARCHAR2(50),
+  4      salary   NUMBER
+  5  );
+Table created.
+SQL>
+SQL> -- Step 2: Insert sample data
+SQL>INSERT INTO test_employees VALUES (101, 'John', 5000);
+1 row created.
+SQL> INSERT INTO test_employees VALUES (102, 'Mary', 6000);
+1 row created.
+SQL> COMMIT;
+Commit complete.
+SQL>
+SQL> -- Step 3: Create Function
+SQL> CREATE OR REPLACE FUNCTION get_salary (
+  2      p_emp_id IN NUMBER
+  3  ) RETURN NUMBER
+  4  AS
+  5      v_salary NUMBER;
+  6  BEGIN
+  7      SELECT salary
+  8      INTO v_salary
+  9      FROM test_employees
+ 10      WHERE emp_id = p_emp_id;
+ 11
+ 12      RETURN v_salary; -- Return salary value
+ 13  EXCEPTION
+ 14      WHEN NO_DATA_FOUND THEN
+ 15          RETURN NULL; -- Return NULL if no employee found
+ 16  END;
+ 17  /
+Function created.
+SQL>
+SQL> -- Step 4: Call function from PL/SQL block
+SQL> BEGIN
+  2      DBMS_OUTPUT.PUT_LINE('Salary of Employee 101: ' || get_salary(101));
+  3  END;
+  4  /
+Salary of Employee 101: 5000
+PL/SQL procedure successfully completed.
+SQL>
+SQL> -- Step 5: Call function in SQL query
+SQL> SELECT emp_name, get_salary(emp_id) AS salary
+  2  FROM test_employees;
+EMP_NAME                                               SALARY
+John                                                     5000
+Mary                                                    6000
