@@ -1,0 +1,35 @@
+SQL> CREATE TABLE test_employees (emp_id   NUMBER PRIMARY KEY, emp_name VARCHAR2(50),salary   NUMBER);
+Table created.
+SQL> -- Insert sample data
+SQL> INSERT INTO test_employees VALUES (101, 'John', 5000);
+
+1 row created.
+
+SQL> INSERT INTO test_employees VALUES (102, 'Mary', 6000);
+
+1 row created.
+
+SQL> COMMIT;
+
+Commit complete.
+
+SQL>
+SQL> -- PL/SQL block using implicit cursor
+SQL> DECLARE
+  2      v_emp_id    NUMBER := 101;   -- Employee ID to update
+  3      v_increment NUMBER := 1000;  -- Salary increment amount
+  4  BEGIN
+  5      -- Update salary for a given employee (Implicit cursor is used)
+  6      UPDATE test_employees
+  7      SET salary = salary + v_increment
+  8      WHERE emp_id = v_emp_id;
+  9
+ 10      -- Check implicit cursor attributes
+ 11      IF SQL%FOUND THEN
+ 12          DBMS_OUTPUT.PUT_LINE('Salary updated successfully.');
+ 13          DBMS_OUTPUT.PUT_LINE('Rows affected: ' || SQL%ROWCOUNT);
+ 14      ELSIF SQL%NOTFOUND THEN
+ 15          DBMS_OUTPUT.PUT_LINE('No employee found with ID ' || v_emp_id);
+ 16      END IF;
+ 17  END;
+ 18  /
